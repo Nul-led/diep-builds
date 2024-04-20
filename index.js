@@ -28,7 +28,7 @@ if (process.env.GITHUB_TOKEN) {
   const { data: historyFile } = await octokit.repos.getContent({
     owner,
     repo,
-    path: "history.txt",
+    path: "history.json",
   });
 
   const history = JSON.parse(historyFile.content);
