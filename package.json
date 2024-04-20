@@ -1,0 +1,17 @@
+{
+  "name": "diep-builds",
+  "version": "0.0.1",
+  "description": "Automatically caches diep builds and converts them",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Nulled",
+  "license": "ISC",
+  "dependencies": {
+    "@actions/github": "^6.0.0",
+    "@octokit/action": "^6.1.0",
+    "node-fetch": "^3.3.2"
+  },
+  "type": "module"
+}
