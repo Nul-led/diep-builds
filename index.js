@@ -31,17 +31,16 @@ if (process.env.GITHUB_TOKEN) {
     path: "history.txt",
   });
 
-  const history = (historyFile.content || "").split("\n");
+  const history = JSON.parse(historyFile.content);
   if (history[0] === hash) throw "No new build found";
   history.unshift(hash);
-  const newHistoryData = history.join("\n");
 
   await octokit.repos.createOrUpdateFileContents({
     owner,
     repo,
-    path: "history.txt",
+    path: "history.json",
     message: `Update History - ${hash}`,
-    content: Buffer.from(newHistoryData).toString("base64"),
+    content: Buffer.from(JSON.stringify(history)).toString("base64"),
     sha: historyFile?.sha,
   });
 
