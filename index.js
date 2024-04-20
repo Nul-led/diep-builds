@@ -31,7 +31,7 @@ if (process.env.GITHUB_TOKEN) {
     path: "history.json",
   });
 
-  const history = JSON.parse(historyFile.content);
+  const history = JSON.parse(atob(historyFile.content));
   if (history[0] === hash) throw "No new build found";
   history.unshift(hash);
 
