@@ -32,7 +32,10 @@ if (process.env.GITHUB_TOKEN) {
   });
 
   const history = JSON.parse(atob(historyFile.content));
-  if (history[0] === hash) throw "No new build found";
+  if (history[0] === hash) {
+    console.log("No new build found");
+    process.exit();
+  }
   history.unshift(hash);
 
   await octokit.repos.createOrUpdateFileContents({
