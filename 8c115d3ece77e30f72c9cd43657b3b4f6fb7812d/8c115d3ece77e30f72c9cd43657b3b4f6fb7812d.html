@@ -1,0 +1,251 @@
+<!doctype html><html><head><link rel="icon" type="image/png" href="/898d2001b20a8386a610.png" sizes="32x32"/><link rel="icon" type="image/png" href="/be87e5a9f24931a70069.png" sizes="96x96"/><link rel="icon" type="image/png" href="/253ff74d022004be5c1c.png" sizes="16x16"/><link rel="mask-icon" href="/551910ff2d3264819636.svg" color="#5bbad5"/><title>diep.io</title><meta name="description" content="Survive and shoot at others while trying to keep your own tank alive!"/><meta name="viewport" content="width=device-width,height=device-height,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,viewport-fit=cover,minimal-ui"/><style>/* === Generic === */
+			body {
+				background-color: #000000;
+				font-family: 'Ubuntu', sans-serif;
+				color: white;
+			}
+
+			:root {
+				-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+				--sat: env(safe-area-inset-top, 0px);
+				--sar: env(safe-area-inset-right, 0px);
+				--sab: env(safe-area-inset-bottom, 0px);
+				--sal: env(safe-area-inset-left, 0px);
+			}
+
+			html,
+			body,
+			#canvas {
+				position: absolute;
+				width: 100vw;
+				height: 100vh;
+				border: 0;
+				margin: 0;
+				padding: 0;
+				overflow: hidden;
+				overscroll-behavior-y: none;
+				-webkit-user-select: none;
+				user-select: none;
+				cursor: default;
+			}
+
+			/* === Preloaded Elements === */
+			#loading {
+				color: #ffffff;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				font-size: 48pt;
+				font-family: sans-serif;
+				font-weight: bold;
+				cursor: default;
+			}
+
+			#canvas {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				cursor: default;
+			}
+
+			d-base {
+				position: fixed;
+				left: 0;
+				right: 0;
+				top: 0;
+				bottom: 0;
+			}
+
+			#textInputContainer {
+				display: none;
+				position: absolute;
+			}
+
+			#textInput {
+				background-color: transparent;
+				font-family: 'Ubuntu';
+				padding: 0;
+				border: 0;
+				outline: none;
+			}
+
+			.sr-only {
+				pointer-events: none;
+				position: absolute;
+				left: -10000px;
+				top: auto;
+				width: 1px;
+				height: 1px;
+				overflow: hidden;
+			}
+
+			button,
+			a {
+				pointer-events: all;
+			}
+
+			/* === Ads === */
+			.aa_holder {
+				display: none;
+
+				position: fixed;
+				left: 0;
+				right: 0;
+				top: 0;
+				bottom: 0;
+				z-index: 998;
+				pointer-events: none;
+			}
+
+			.aa_holder.active {
+				display: block;
+			}
+
+			.aa_holder.force_hide {
+				display: none;
+			}
+
+			.gameWrapper .aa_holder {
+				display: none;
+			}
+
+			.aa {
+				pointer-events: all;
+			}
+
+			/* Hides individual ads */
+			.aa.force_hide {
+				display: none;
+			}
+
+			.aa.left {
+				position: absolute;
+				/* width: 300px;
+				height: 600px; */
+				left: 0;
+				top: 50%;
+				transform: translateY(-50%) scale(max(var(--ssz), 1));
+				transform-origin: center left;
+			}
+
+			.aa.left > .double {
+				display: flex;
+				flex-direction: column;
+				justify-content: space-around;
+				height: 100%;
+			}
+/* 
+			.aa.left > .double .half {
+				height: 250px;
+			} */
+
+			.aa.bottom {
+				position: absolute;
+				text-align: center;
+				bottom: calc(70px * var(--ssz));
+				left: 50%;
+				margin-bottom: max(7vh, 20px);
+				transform: translateX(-50%) scale(max(var(--ssz), 0.5));
+				transform-origin: bottom center;
+			}
+
+			.aa.video {
+				position: absolute;
+				display: none;
+				flex-direction: row;
+				align-items: center;
+				justify-content: center;
+				left: 0;
+				top: 0;
+				width: 100vw;
+				height: 100vh;
+				padding: 10px;
+				background-color: #00000065;
+				box-sizing: border-box;
+			}
+
+			.aa.video.active {
+				display: flex;
+			}
+
+			.aa.video #video-close {
+				position: absolute;
+				right: 20px;
+				top: 20px;
+				width: 40px;
+				height: 40px;
+				cursor: pointer;
+				border-radius: 100%;
+				filter: invert(100%);
+				background: url(/6837248f26b4746bca22.svg),
+					linear-gradient(#ffffff40, #ffffff40);
+				background-size: 65% 65%, 100% 100%;
+				background-position: center;
+				background-repeat: no-repeat;
+				z-index: 1001;
+			}
+
+			.aa.video #video-close:active {
+				transform: scale(0.9);
+			}
+
+			#captcha-holder {
+				pointer-events: all;
+				position: absolute !important;
+				left: 50% !important;
+				top: calc(
+					(100vh - var(--sab) - 75px) / 2
+				) !important; /* Account for mobile ad */
+
+				margin-top: 90px;
+				transform: scale(0.7) translate(-70%, -50%) !important;
+				z-index: 1000;
+			}</style><script>var aiptag = aiptag || {};
+			aiptag.cmd = aiptag.cmd || [];
+			aiptag.cmd.display = aiptag.cmd.display || [];
+			aiptag.cmd.player = aiptag.cmd.player || [];
+
+			//CMP tool settings
+			aiptag.cmp = {
+				show: true,
+				position: 'centered', //centered or bottom
+				button: true,
+				buttonText: 'Privacy settings',
+				buttonPosition: 'bottom-left', //bottom-left, bottom-right, top-left, top-right
+			};</script><script async src="//api.adinplay.com/libs/aiptag/pub/LBS/diep.io/tag.min.js"></script><script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer="defer"></script><script src="https://sdk.crazygames.com/crazygames-sdk-v2.js"></script><script defer="defer" src="/index.ac236b6b.js?4e95744d92ca26f5c23c"></script></head><body ontouchstart="return false;"><div id="captcha-holder"></div><script>var _comscore = _comscore || [];
+			_comscore.push({ c1: '2', c2: '22419751' });
+			(function () {
+				var s = document.createElement('script'),
+					el = document.getElementsByTagName('script')[0];
+				s.async = true;
+				s.src =
+					'https://sb.scorecardresearch.com/cs/22419751/beacon.js';
+				el.parentNode.insertBefore(s, el);
+			})();</script><noscript><img src="https://sb.scorecardresearch.com/p?c1=2&amp;c2=22419751&amp;cv=3.6.0&amp;cj=1"/></noscript><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5ZSJV7D" height="0" width="0" style="display: none; visibility: hidden"></iframe></noscript><style>button,
+			a {
+				pointer-events: all !important;
+			}</style><script>document.addEventListener('touchstart', (ev) => {
+				if (
+					(ev.target && ev.target.tagName == 'BUTTON') ||
+					ev.target.tagName == 'A'
+				) {
+					ev.target.click();
+				}
+			});</script><link href="https://fonts.googleapis.com/css?family=Ubuntu:700" rel="stylesheet"/><div class="diep-native sr-only"><a href="https://iogames.space">io games</a> <a href="changelog.html">Changelog</a> <a href="pp.html">Privacy Policy</a> <a href="tos.html">Terms of Service</a></div><canvas id="canvas" class="diep-native" width="800" height="800"></canvas><div class="aa_main diep-native aa_holder active"><div class="aa left"><div class="single"></div><div class="double"><div class="aa half"><div id="diep-io_300x250" class="definitive-ad ad-1"></div></div><div class="aa half"><div id="diep-io_300x250_3" class="definitive-ad ad-2"></div></div></div></div><div class="aa bottom"><div id="diep-io_728x90" class="definitive-ad ad-3"></div></div></div><div class="aa_main diep-native aa_holder active" style="z-index: 1000"><div class="aa video"><div id="videoad" style="width: 100%; height: 100%; text-align: center"></div></div></div><div class="diep-native" style="position: absolute;
+				width: 640px;
+				height: 360px;
+				top: 50%;
+				left: 50%;
+				margin-left: -320px;
+				margin-top: -180px;
+				display: none;"><div id="player" style="width: 100%; height: 100%"></div></div><div class="diep-native" style="font-family: 'Ubuntu'">&nbsp;</div><div id="textInputContainer" class="diep-native"><input id="textInput"/></div><img class="diep-native" src="/3faeef706382726fef1b.jpg" data-path="contest.jpg" hidden/><script async src="https://www.googletagmanager.com/gtag/js?id=UA-101224921-4"></script><script>window.dataLayer = window.dataLayer || [];
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag('js', new Date());
+
+			gtag('config', 'UA-101224921-4');</script></body></html>
